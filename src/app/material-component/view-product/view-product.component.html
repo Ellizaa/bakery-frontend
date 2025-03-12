@@ -1,0 +1,31 @@
+<b><h1>View Product</h1></b>
+<hr>
+<mat-card>
+  <mat-form-field appearance="fill">
+    <mat-label>Filter by Category</mat-label>
+    <mat-select (selectionChange)="applyFilter($event.value)">
+      <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+<hr>
+<div class="product-grid">
+  <mat-card *ngFor="let product of filteredProducts" class="product-card">
+    <img mat-card-image [src]="'http://localhost:9091' + product.imagePath" alt="{{product.name}}">
+    <mat-card-content>
+      <h2>{{product.name}}</h2>
+      <div class="content">
+        <div class="info">
+          <p>Category: {{product.categoryName}}</p>
+          <p>Flavor: {{product.flavor}}</p>
+        </div>
+        <p>{{product.price}}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="btnWrapper">
+        <button mat-button class="addToOrderBtn" color="accent" (click)="handleBuyAction(product)">Add to order</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

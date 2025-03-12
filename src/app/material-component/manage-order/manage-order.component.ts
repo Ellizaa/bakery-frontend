@@ -47,10 +47,61 @@ export class ManageOrderComponent implements OnInit {
     });
   }
 
+  initProductCart() {
+
+    const productCartJson = localStorage.getItem('PRODUCT_CART');
+    let productCart: any[] = [];
+    if(productCartJson){
+      productCart = JSON.parse(productCartJson);
+    }
+
+    productCart.forEach(p => {
+      const category = this.categorys.filter((c: any) => p.categoryId === c.id)[0];
+      this.productService.getProductsByCategory(category.id).subscribe((response: any) => {
+        const product = response.filter((r: any) => p.productId === r.id)[0];
+        console.log(category)
+        console.log(product)
+
+        this.manageOrderForm = this.formBuilder.group({
+          name: [null, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
+          email: [null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
+          contactNumber: [null, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
+          paymentMethod: [null, [Validators.required]],
+          product: [product, [Validators.required]],
+          category: [category, [Validators.required]],
+          quantity: [1, [Validators.required]],
+          price: [product.price, [Validators.required]],
+          total: [ 1 * product.price, [Validators.required]]
+        });
+
+        this.add()
+        this.clearForm()
+      })
+    })
+
+  }
+
+  clearForm() {
+    this.manageOrderForm = this.formBuilder.group({
+      name: [null, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
+      email: [null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
+      contactNumber: [null, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
+      paymentMethod: [null, [Validators.required]],
+      product: [null, [Validators.required]],
+      category: [null, [Validators.required]],
+      quantity: [null, [Validators.required]],
+      price: [null, [Validators.required]],
+      total: [0, [Validators.required]]
+    });
+  }
+
   getCategorys() {
     this.categoryService.getCategorys().subscribe((response: any) => {
       this.ngxService.stop();
       this.categorys = response;
+
+      this.initProductCart();
+
     }, (error: any) => {
       this.ngxService.stop();
       console.log(error);

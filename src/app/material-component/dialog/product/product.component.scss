@@ -6,3 +6,23 @@
 mat-form-field{
     padding: 5px;
 }
+
+.image-box {
+  width: 150px; /* Adjust width as needed */
+  height: 150px; /* Adjust height as needed */
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #f8f8f8;
+  overflow: hidden; /* Ensures the image does not overflow */
+}
+
+.preview-img {
+  width: 100%; /* Make image fit inside the box */
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the box while maintaining aspect ratio */
+  border-radius: 5px;
+}
+

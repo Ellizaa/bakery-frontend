@@ -11,6 +11,22 @@
 <mat-dialog-content class="mat-typography">
     <form [formGroup]="productForm">
         <div fxFlex fxLayout="column">
+
+          <div fxLayout="row wrap">
+            <input
+              style="display: none"
+              id="input-file-id"
+              type="file"
+              #imageFile
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            />
+
+            <div class="image-box" (click)="imageFile.click()">
+              <img *ngIf="imagePreview || fileUploadUrl" [src]="fileUploadUrl ? 'http://localhost:9091' + fileUploadUrl: imagePreview" class="preview-img" />
+            </div>
+          </div>
+
             <div fxLayout="row wrap">
                 <mat-form-field appearance="fill" fxFlex>
                     <mat-label>Name</mat-label>

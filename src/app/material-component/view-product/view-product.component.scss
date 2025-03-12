@@ -1,0 +1,20 @@
+.product-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.product-card {
+  width: 32%;
+  .content{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.btnWrapper{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}

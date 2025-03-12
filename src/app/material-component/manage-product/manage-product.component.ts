@@ -17,7 +17,7 @@ import { ConfirmationComponent } from '../dialog/confirmation/confirmation.compo
 })
 export class ManageProductComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'categoryName', 'flavor', 'price', 'edit'];
+  displayedColumns: string[] = [ 'image', 'name', 'categoryName', 'flavor', 'price', 'edit'];
   dataSource:any;
   //length1:any;
   responseMessage:any;

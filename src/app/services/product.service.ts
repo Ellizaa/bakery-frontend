@@ -11,6 +11,10 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
+  uploadImage(data:any){
+    return this.httpClient.post(this.url + "/product/images", data);
+  }
+
   add(data:any){
     return this.httpClient.post(this.url +
       "/product/add", data, {
