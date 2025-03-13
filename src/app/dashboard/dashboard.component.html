@@ -1,9 +1,9 @@
 <body>
-    <mat-card>
+    <div class="row" *ngIf="currentRole == 'admin'">
+      <mat-card>
         <b><span>Dashboard</span></b>
-    </mat-card>
-    <br>
-    <div class="row">
+      </mat-card>
+      <br>
         <div class="column">
             <div class="card">
                 <div class="container">
@@ -33,5 +33,48 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row" *ngIf="currentRole == 'user'">
+      <mat-card>
+        <b><h1>Recommend Products</h1></b>
+      </mat-card>
+      <br>
+      <hr>
+      <mat-card>
+        <mat-form-field appearance="fill">
+          <mat-label>Filter by Category</mat-label>
+          <mat-select (selectionChange)="applyFilter($event.value)">
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+      <hr>
+      <div class="product-grid">
+        <mat-card *ngFor="let product of filteredProducts" class="product-card">
+          <img mat-card-image [src]="'http://localhost:9091' + product.imagePath" alt="{{product.name}}">
+          <mat-card-content>
+            <h2>{{product.name}}</h2>
+            <div class="content">
+              <div class="info">
+                <p>Category: {{product.categoryName}}</p>
+                <p>Flavor: {{product.flavor}}</p>
+                <span>Amount: </span>
+                <input type="text" [(ngModel)]="product.amount">
+              </div>
+              <div>
+                <p>{{product.price}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="btnWrapper">
+              <button mat-button class="addToOrderBtn" color="accent">Add to order</button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+
     </div>
 </body>

@@ -42,6 +42,7 @@ export class RouteGuardService {
       }
 
       if(tokenPayload.role == 'user' || tokenPayload.role == 'admin'){
+        localStorage.setItem("ROLE", tokenPayload.role);
         if(this.auth.isAuthenticated() && tokenPayload.role == expectedRole){
           return true;
         }
