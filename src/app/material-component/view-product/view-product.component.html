@@ -18,8 +18,12 @@
         <div class="info">
           <p>Category: {{product.categoryName}}</p>
           <p>Flavor: {{product.flavor}}</p>
+          <span>Amount: </span>
+          <input type="text" [(ngModel)]="product.amount">
         </div>
-        <p>{{product.price}}</p>
+        <div>
+          <p>{{product.price}}</p>
+        </div>
       </div>
     </mat-card-content>
     <mat-card-actions>

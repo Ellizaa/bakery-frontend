@@ -53,14 +53,13 @@ export class ManageOrderComponent implements OnInit {
     let productCart: any[] = [];
     if(productCartJson){
       productCart = JSON.parse(productCartJson);
+      console.log(productCart)
     }
 
     productCart.forEach(p => {
       const category = this.categorys.filter((c: any) => p.categoryId === c.id)[0];
       this.productService.getProductsByCategory(category.id).subscribe((response: any) => {
         const product = response.filter((r: any) => p.productId === r.id)[0];
-        console.log(category)
-        console.log(product)
 
         this.manageOrderForm = this.formBuilder.group({
           name: [null, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
@@ -69,13 +68,14 @@ export class ManageOrderComponent implements OnInit {
           paymentMethod: [null, [Validators.required]],
           product: [product, [Validators.required]],
           category: [category, [Validators.required]],
-          quantity: [1, [Validators.required]],
+          quantity: [p.amount, [Validators.required]],
           price: [product.price, [Validators.required]],
-          total: [ 1 * product.price, [Validators.required]]
+          total: [ p.amount * product.price, [Validators.required]]
         });
 
         this.add()
         this.clearForm()
+        localStorage.setItem("PRODUCT_CART", "")
       })
     })
 

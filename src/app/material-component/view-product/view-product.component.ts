@@ -23,7 +23,8 @@ export class ViewProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {
   }
 
@@ -58,10 +59,13 @@ export class ViewProductComponent implements OnInit {
       productCart.push({
         'productId': product.id,
         'categoryId': product.categoryId,
+        'amount': Math.round(product.amount)
       });
       localStorage.setItem("PRODUCT_CART", JSON.stringify(productCart));
+      this.snackbarService.openSnackBar("Successfully added","succedd");
     } else {
       console.log("Product is already in the cart");
+      this.snackbarService.openSnackBar("Ooops... already exists","succedd");
     }
   }
 
