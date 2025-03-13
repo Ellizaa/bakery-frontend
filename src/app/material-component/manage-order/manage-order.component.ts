@@ -36,9 +36,9 @@ export class ManageOrderComponent implements OnInit {
     this.getCategorys();
     const user = JSON.parse(localStorage.getItem('user') as string)
     this.manageOrderForm = this.formBuilder.group({
-      name: [{value: user.name, disabled: true}, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
-      email: [{value: user.email, disabled: true}, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
-      contactNumber: [{value: user.contactNumber, disabled: true}, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
+      name: [{value: user.role === 'user' ? user.name: null, disabled: user.role === 'user'}, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
+      email: [{value: user.role === 'user' ? user.email: null, disabled: user.role === 'user'}, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
+      contactNumber: [{value: user.role === 'user' ? user.contactNumber: null, disabled: user.role === 'user'}, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
       paymentMethod: [null, [Validators.required]],
       product: [null, [Validators.required]],
       category: [null, [Validators.required]],

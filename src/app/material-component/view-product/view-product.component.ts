@@ -53,6 +53,12 @@ export class ViewProductComponent implements OnInit {
 
     // Check if the productId already exists in the cart
     const productExists = productCart.some(item => item.productId === product.id);
+
+    if(product.amount == undefined || Math.round(product.amount) === 0){
+      this.snackbarService.openSnackBar("Please add quanity","succedd");
+      return;
+    }
+
     if (!productExists) {
       productCart.push({
         'productId': product.id,
