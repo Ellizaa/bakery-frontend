@@ -37,18 +37,9 @@
 
     <div class="row" *ngIf="currentRole == 'user'">
       <mat-card>
-        <b><h1>Recommend Products</h1></b>
+        <b style="padding: 20px"><h1>Recommend Products</h1></b>
       </mat-card>
       <br>
-      <hr>
-      <mat-card>
-        <mat-form-field appearance="fill">
-          <mat-label>Filter by Category</mat-label>
-          <mat-select (selectionChange)="applyFilter($event.value)">
-            <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-card>
       <hr>
       <div class="product-grid">
         <mat-card *ngFor="let product of filteredProducts" class="product-card">
