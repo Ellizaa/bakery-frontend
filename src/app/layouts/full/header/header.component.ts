@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChangePasswordComponent } from 'src/app/material-component/dialog/change-password/change-password.component';
 import { ConfirmationComponent } from 'src/app/material-component/dialog/confirmation/confirmation.component';
+import {UserInfoComponent} from "../../../material-component/dialog/user-info/user-info.component";
 
 @Component({
   selector: 'app-header',
@@ -34,5 +35,11 @@ export class AppHeaderComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "550px";
     this.dialog.open(ChangePasswordComponent, dialogConfig);
+  }
+
+  showInfo(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "550px";
+    this.dialog.open(UserInfoComponent, dialogConfig);
   }
 }

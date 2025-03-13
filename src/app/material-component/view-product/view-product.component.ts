@@ -36,13 +36,11 @@ export class ViewProductComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.productService.getProducts().subscribe((response:any)=>{
-      console.log(response)
-    })
-
-
     this.categoryService.getCategorys().subscribe((response:any)=>{
       this.categories = response
+      if(this.categories && this.categories.length > 0){
+        this.applyFilter(this.categories[0].id)
+      }
     })
   }
 

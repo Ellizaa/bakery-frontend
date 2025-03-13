@@ -11,7 +11,7 @@
 <hr>
 <div class="product-grid">
   <mat-card *ngFor="let product of filteredProducts" class="product-card">
-    <img mat-card-image [src]="'http://localhost:9091' + product.imagePath" alt="{{product.name}}">
+    <img mat-card-image [src]="'http://localhost:9091' + product.imagePath" height="250px" alt="{{product.name}}">
     <mat-card-content>
       <h2>{{product.name}}</h2>
       <div class="content">

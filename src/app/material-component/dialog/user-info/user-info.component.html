@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span>User Info</span>
+        <span class="spacer"></span>
+        <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    <div  class="wrapper">
+      <span class="title">Username: </span>
+      <span class="info">{{user.name}}</span>
+    </div>
+  <div  class="wrapper">
+    <span class="title">Contact: </span>
+    <span class="info">{{user.contactNumber}}</span>
+  </div>
+  <div  class="wrapper">
+    <span class="title">Email: </span>
+    <span class="info">{{user.email}}</span>
+  </div>
+</mat-dialog-content>

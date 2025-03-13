@@ -34,10 +34,11 @@ export class ManageOrderComponent implements OnInit {
   ngOnInit(): void {
     this.ngxService.start();
     this.getCategorys();
+    const user = JSON.parse(localStorage.getItem('user') as string)
     this.manageOrderForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
-      email: [null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
-      contactNumber: [null, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
+      name: [{value: user.name, disabled: true}, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
+      email: [{value: user.email, disabled: true}, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
+      contactNumber: [{value: user.contactNumber, disabled: true}, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
       paymentMethod: [null, [Validators.required]],
       product: [null, [Validators.required]],
       category: [null, [Validators.required]],

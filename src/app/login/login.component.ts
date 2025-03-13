@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(data).subscribe((response: any)=>{
       this.ngxService.stop();
       this.dialogRef.close();
-      console.log(response)
+      localStorage.setItem("user", JSON.stringify(response))
       localStorage.setItem('token', response.token);
       this.router.navigate(['/cafe/dashboard']);
     },(error)=>{
