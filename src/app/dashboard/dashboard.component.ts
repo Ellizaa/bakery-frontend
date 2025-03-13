@@ -14,7 +14,7 @@ export class DashboardComponent implements AfterViewInit {
 
 
   categories: any[] = []
-  filteredProducts: any[] = []
+  recommendProducts: any[] = []
 
 	responseMessage: any;
 	data: any;
@@ -33,16 +33,12 @@ export class DashboardComponent implements AfterViewInit {
 			this.ngxService.start();
 			this.dashboardData();
 
-      this.categoryService.getCategorys().subscribe((response:any)=>{
-        this.categories = response
+      const user: any = JSON.parse(localStorage.getItem('user')  as string)
+      this.productService.getRecommendProducts(user.id).subscribe((response: any) => {
+        this.recommendProducts = response.recommended_products
+        console.log(this.recommendProducts)
       })
 	}
-
-  applyFilter(categoryId: any){
-    this.productService.getProductsByCategory(categoryId).subscribe((response: any) => {
-      this.filteredProducts = response
-    })
-  }
 
 	dashboardData(){
 		this.dashboardService.getDetails().subscribe((response:any)=>{
@@ -60,5 +56,28 @@ export class DashboardComponent implements AfterViewInit {
 			this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
 		})
 	}
+
+  handleBuyAction(product: any) {
+    let productCartJson = localStorage.getItem("PRODUCT_CART");
+    let productCart: any[] = [];
+    if (productCartJson) {
+      productCart = JSON.parse(productCartJson);
+    }
+
+    // Check if the productId already exists in the cart
+    const productExists = productCart.some(item => item.productId === product.id);
+    if (!productExists) {
+      productCart.push({
+        'productId': product.id,
+        'categoryId': product.category_id,
+        'amount': Math.round(product.amount)
+      });
+      localStorage.setItem("PRODUCT_CART", JSON.stringify(productCart));
+      this.snackbarService.openSnackBar("Successfully added","succedd");
+    } else {
+      console.log("Product is already in the cart");
+      this.snackbarService.openSnackBar("Ooops... already exists","succedd");
+    }
+  }
 
 }

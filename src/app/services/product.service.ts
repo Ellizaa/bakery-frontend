@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 export class ProductService {
 
   url = environment.apiUrl;
+  python_url = environment.pythonApiUrl;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -49,6 +50,10 @@ export class ProductService {
 
   getProductsByCategory(id:any){
     return this.httpClient.get(this.url+ "/product/getByCategory/"+ id);
+  }
+
+  getRecommendProducts(userId:any){
+    return this.httpClient.get(this.python_url+ "/recommendations/"+ userId);
   }
 
   getById(id:any){

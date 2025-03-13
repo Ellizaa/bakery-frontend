@@ -42,8 +42,8 @@
       <br>
       <hr>
       <div class="product-grid">
-        <mat-card *ngFor="let product of filteredProducts" class="product-card">
-          <img mat-card-image [src]="'http://localhost:9091' + product.imagePath" alt="{{product.name}}">
+        <mat-card *ngFor="let product of recommendProducts" class="product-card">
+          <img mat-card-image [src]="'http://localhost:9091' + product.image_path"  height="250px" alt="{{product.name}}">
           <mat-card-content>
             <h2>{{product.name}}</h2>
             <div class="content">
@@ -60,7 +60,7 @@
           </mat-card-content>
           <mat-card-actions>
             <div class="btnWrapper">
-              <button mat-button class="addToOrderBtn" color="accent">Add to order</button>
+              <button mat-button class="addToOrderBtn" color="accent" (click)="handleBuyAction(product)">Add to order</button>
             </div>
           </mat-card-actions>
         </mat-card>
