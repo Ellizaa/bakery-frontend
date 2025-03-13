@@ -12,8 +12,6 @@ import {CategoryService} from "../services/category.service";
 })
 export class DashboardComponent implements AfterViewInit {
 
-
-  categories: any[] = []
   recommendProducts: any[] = []
 
 	responseMessage: any;
@@ -36,7 +34,6 @@ export class DashboardComponent implements AfterViewInit {
       const user: any = JSON.parse(localStorage.getItem('user')  as string)
       this.productService.getRecommendProducts(user.id).subscribe((response: any) => {
         this.recommendProducts = response.recommended_products
-        console.log(this.recommendProducts)
       })
 	}
 

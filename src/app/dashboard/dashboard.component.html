@@ -1,7 +1,7 @@
 <body>
     <div class="row" *ngIf="currentRole == 'admin'">
       <mat-card>
-        <b><span>Dashboard</span></b>
+        <b style="padding: 25px"><h1>Dashboard</h1></b>
       </mat-card>
       <br>
         <div class="column">
@@ -42,6 +42,9 @@
       <br>
       <hr>
       <div class="product-grid">
+        <div style="padding: 150px;" *ngIf="recommendProducts.length == 0">
+          <h1>No Recommend Products</h1>
+        </div>
         <mat-card *ngFor="let product of recommendProducts" class="product-card">
           <img mat-card-image [src]="'http://localhost:9091' + product.image_path"  height="250px" alt="{{product.name}}">
           <mat-card-content>
