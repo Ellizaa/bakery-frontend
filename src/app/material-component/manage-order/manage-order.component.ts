@@ -32,13 +32,12 @@ export class ManageOrderComponent implements OnInit {
     private ngxService: NgxUiLoaderService) { }
 
   ngOnInit(): void {
-    this.ngxService.start();
-    this.getCategorys();
+
     const user = JSON.parse(localStorage.getItem('user') as string)
     this.manageOrderForm = this.formBuilder.group({
-      name: [{value: user.role === 'user' ? user.name: null, disabled: user.role === 'user'}, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
-      email: [{value: user.role === 'user' ? user.email: null, disabled: user.role === 'user'}, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
-      contactNumber: [{value: user.role === 'user' ? user.contactNumber: null, disabled: user.role === 'user'}, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
+      name: [{value: user.role === 'user' ? user.name: null, disabled: false}, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
+      email: [{value: user.role === 'user' ? user.email: null, disabled: false}, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
+      contactNumber: [{value: user.role === 'user' ? user.contactNumber: null, disabled: false}, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
       paymentMethod: [null, [Validators.required]],
       product: [null, [Validators.required]],
       category: [null, [Validators.required]],
@@ -46,6 +45,9 @@ export class ManageOrderComponent implements OnInit {
       price: [null, [Validators.required]],
       total: [0, [Validators.required]]
     });
+
+    this.ngxService.start();
+    this.getCategorys();
   }
 
   initProductCart() {
@@ -83,10 +85,11 @@ export class ManageOrderComponent implements OnInit {
   }
 
   clearForm() {
+    const user = JSON.parse(localStorage.getItem('user') as string)
     this.manageOrderForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
-      email: [null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
-      contactNumber: [null, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
+      name: [{value: user.role === 'user' ? user.name: null, disabled: false}, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
+      email: [{value: user.role === 'user' ? user.email: null, disabled: false}, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
+      contactNumber: [{value: user.role === 'user' ? user.contactNumber: null, disabled: false}, [Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
       paymentMethod: [null, [Validators.required]],
       product: [null, [Validators.required]],
       category: [null, [Validators.required]],
@@ -181,6 +184,7 @@ export class ManageOrderComponent implements OnInit {
 
   add() {
     var formData = this.manageOrderForm.value;
+    console.log(formData)
     var productName = this.dataSource.find((e: { id: number }) => e.id === formData.product.id);
     if (productName === undefined) {
       this.totalAmount = this.totalAmount + formData.total;
@@ -213,7 +217,7 @@ export class ManageOrderComponent implements OnInit {
     this.ngxService.start();
     this.billService.generateReport(data).subscribe((response: any) => {
       this.downloadFile(response.uuid);
-      this.manageOrderForm.reset();
+      this.clearForm()
       this.dataSource = [];
       this.totalAmount = 0;
     }, (error: any) => {
